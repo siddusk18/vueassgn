@@ -1,0 +1,401 @@
+<template>
+ <div>
+     <h1> PostComponent </h1>
+
+     <form @submit="SubmitData" method="post">
+         <input type="text" name="email" v-model="post.email"/> <br><br>
+         <input type="text" name="gender" v-model="post.gender"/> <br><br>
+         <input type="number" name="ID" v-model="post.ID"/> <br><br>
+         <input type="text" name="name" v-model="post.name"/> <br><br>
+         <input type="text" name="status" v-model="post.status"/> <br><br>
+         <button type="submit">post</button> 
+
+
+
+     </form>
+ </div>
+</template>
+
+<script>
+
+export default {
+  name: 'PostComponent',
+ data()
+ {
+     return
+     {
+           post:
+           {
+              email:null
+              gender:null
+              ID:null
+              name:null
+              status:null
+
+           }
+     }
+    
+ },
+  methods:
+     {
+         SubmitData(e)
+         {
+            console.warn(this.post)
+             e.PreventDefault();
+         }
+
+     }
+ 
+}
+</script>
+
+-------------------------------------------------------------hello world
+
+<template>
+  <div class="hello">
+    <h1>hello HelloWorld</h1>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'HelloWorld',
+  props: {
+    msg: String
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+h3 {
+  margin: 40px 0 0;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #42b983;
+}
+</style>
+-----------------------------------------------------------loginpage
+
+<template>
+  <div>
+    <h1>welcome to vue learnings</h1>
+    <h2>please enter your credentials</h2>
+    <form @submit="login">
+    <input type="text" v-model="mail" placeholder="enter your mail"><br><br>
+    <input type="password" v-model="password" placeholder="enter your password"><br><br>
+    <button v-on:click="login ('loged in')">Login</button>
+    </form>
+
+
+<br> <br>
+     <router-link to='/userslist'>
+    <button v-on:click="userslist">userslist</button>
+    </router-link>
+
+<br> <br>
+
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'loginpage',
+ 
+
+    methods:
+  {
+    login (e)
+    {
+       console.warn("login console called");
+       
+    }
+  }
+  
+}
+</script>
+
+----------------------------------------------------------homepage
+
+<template>
+
+  <div>
+       
+
+    <h1>Home page</h1>
+    <p>
+        Vue (pronounced /vjuː/, like view) is a progressive framework for building user interfaces. Unlike other monolithic frameworks, Vue is designed from the ground up to be incrementally adoptable. The core library is focused on the view layer only, and is easy to pick up and integrate with other libraries or existing projects. On the other hand, Vue is also perfectly capable of powering sophisticated Single-Page Applications when used in combination with modern tooling and supporting libraries.
+
+If you’d like to learn more about Vue before diving in, we created a video walking through the core principles and a sample project.
+    </p>
+
+    <router-link to='/login'>
+    <button v-on:click="login">login</button>
+    </router-link>
+
+<br> <br>
+
+
+    <router-link to='/signup'>
+    <button v-on:click="signup">signup</button> 
+    </router-link>
+
+<br> <br>
+
+
+     <router-link to='/postcomponent'>
+    <button v-on:click="postcomponent">postcomponent</button> 
+    </router-link>
+
+
+    
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'Homepage',
+  props: {
+    msg: String
+  },
+  methods:  
+  {
+    SignUp ()
+    {
+        
+        console.log(" signup console called")
+    },
+    login ()
+    {
+        console.log(" login console called")
+    }
+  }
+}
+</script>
+
+--------------------------------------------------------------signup
+
+<template>
+  <div class="register">
+    <h1>SignUp</h1>
+    <form >
+    <input type="text" v-model="name" placeholder="enter your name"><br><br>
+    <input type="text" v-model="name" placeholder="enter your mail"><br><br>
+    <input type="text" v-model="name" placeholder="enter your ph.no"><br><br>
+    <input type="password" v-model="name" placeholder="enter your password"><br><br>
+    <input type="password" v-model="name" placeholder="confirm your password "><br><br>
+    <input type="text" v-model="name" placeholder="enter your state"><br><br>
+    <button v-on:click="register ('Succesfully registerd.! Thank you')">register</button>
+    </form>
+    
+
+    <br><br>
+
+     <router-link to='/homepage'>
+    <button v-on:click="homepage">homepage</button>
+    </router-link>
+
+    
+
+  </div>
+</template>
+
+<script>
+
+export default {
+  name: 'Signup',
+ 
+  props: {
+      data:String,
+    msg: String
+  },
+  methods:  
+  {
+    register (data)
+    {
+        alert(data)
+    }
+    
+  }
+}
+</script>
+------------------------------------------------------userlist
+
+<template>
+  <div>
+    <h1>USERS list</h1>
+    <div>
+        <table  border="1px" > 
+            <tr>
+                <td>Emial</td>
+                <td>gender</td>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Status</td>
+            </tr>
+
+            <tr v-for="item in list" v-bind:key="item.ID">
+                <td>{{item.email}}</td>
+                <td>{{item.gender}}</td>
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.status}}</td>
+            </tr>
+
+        </table>
+
+
+    </div>
+    
+  </div>
+</template>
+
+<script>
+
+import vue from 'vue';
+import vueaxios from 'vue-axios';
+import axios from 'axios';
+
+vue.use(vueaxios,axios)
+
+export default {
+  name: 'userslist',
+  data()
+  {
+      return{
+          list: undefined
+      }
+  },
+  mounted()
+  {
+      vue.axios.get('https://gorest.co.in/public/v1/users')
+      .then(Response=>{
+          this.list=Response.data.data
+          console.warn(Response.data.data)
+      })
+  }
+  
+}
+</script>
+
+-----------------------------------------------------------------------------app.vue
+
+<template>
+
+
+  <div id="app" >
+
+
+    <div id="header">
+       <MyHeader style="background-color=yello;"> WELCOME TO THE WORLD OF VUE </MyHeader>
+    </div>
+
+
+   <img alt="Vue logo" src="./assets/logo.png">
+    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <router-view></router-view>
+    <Homepage/>
+    
+    <postComponent/>
+  
+  </div>
+</template>
+
+<script>
+//import HelloWorld from './components/HelloWorld.vue'
+
+
+//import SignUp from './components/SignUp.vue'
+import Homepage from './components/Homepage.vue'
+
+import postComponent from './components/postcomponent'
+
+export default {
+  name: 'App',
+  components: {
+    //HelloWorld,
+   Homepage,postComponent
+    
+  }
+}
+</script>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 10px;
+  background-color: rgb(176, 218, 159);
+  
+}
+#header{
+font-family: Avenir, Helvetica, Arial, sans-serif,'Times New Roman', Times, serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #130112;
+  margin-top: 10px;
+  background-color: rgb(25, 201, 78);
+}
+</style>
+----------------------------------------------------------main.js
+
+
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import App from './App.vue'
+import login from './components/loginpage'
+import signup from './components/SignUp'
+
+import userslist from './components/userslist.vue'
+
+
+Vue.use(VueRouter);
+const routes =[
+  {path:'/login' , component:login},
+  {path:'/signup' , component:signup},
+ 
+  {path:'/userslist' , component:userslist},
+ 
+]
+
+
+
+const router = new VueRouter ({
+  routes
+})
+
+Vue.config.productionTip = false
+
+new Vue({
+  router:router,
+  render: h => h(App),
+}).$mount('#app')
+
+
+-----------------------------------------babel.config
+
+module.exports = {
+  "presets": [
+    "@babel/preset-env"
+  ]
+}
+
+
+
+
+
+
+
+
